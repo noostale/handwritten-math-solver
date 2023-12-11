@@ -1,5 +1,5 @@
 # Riconoscitore e risolutore di espressioni matematiche scritte a mano
-Lo scopo del progetto è quello di utilizzare modelli di machine learning assieme ad elementi di computer vision per poter determinare, a partire da un'immagine che contiene un'espressione matematica scritta a mano, l'equivalente espressione scritta in ASCII.
+Lo scopo del progetto qui descritto è quello di determinare, a partire da un'immagine che contiene un'espressione matematica scritta a mano, l'equivalente espressione scritta in ASCII utilizzando una rete neurale convoluzionale.
 
 # Librerie utilizzate
 Per il progetto sono state utilizzate le librerie:
@@ -12,40 +12,19 @@ Per il progetto sono state utilizzate le librerie:
 - PIL
 - TensorFlow
 
-Il progetto è presentato come un Jupiter Notebook, nelle righe successive andrò a delineare i vari paragrafi in cui esso è suddiviso.
+Il progetto è visionabile sottoforma di 3 Jupiter Notebook. Nei paragrafi successivi si delineano le fondamenta del progetto.
 
-# Definizione della funzione per il caricamento del dataset
-Inizialmente nel notebook andiamo a definire una funzione la quale, presa in input una directory che contiene immagini, restituisce una lista di immagini normalizzate in base alle impostazioni del modello che andremo a creare ed allenare.
+# Funzione di caricamento del dataset
+Si definisce una funzione che presa in input una directory che contiene immagini, ne restituisce l'array normalizzato in base alle caratteristiche del modello che si andrà a definire in seguito.
 
-
-
-# Creazione array di training e di test
-In questi due paragrafi andiamo a creare gli array che conterrano tutte le immagini con cui vorremo trainare e testare il nostro modello, aggiungendo come ultimo elemento della singola immagine nella matrice la label corrispondente. 
-
-
-
-# Creazione set di training e di test
-In questi paragrafi prendiamo la nostra matrice di test e traning e ne andiamo a cacciare quelle che sono le label di ogni immagine ed andiamo a categorizzare le label.
-
-
+# Caricamento e pre-elaborazione del dataset
+Si costruiscono e popolano gli array che contengono il test ed il train set, aggiungendo come ultimo elemento della singola immagine nella matrice la label corrispondente ed estraendolo successivamente.
 
 # Definizione e training del modello
-In questo paragrafo definiamo un modello sequenziale che andremo a trainare utilizzando i dati estratti ed elaborati in precenza.
+Si definisce un modello sequenziale basato su una rete convoluzionale, che viene successivamente addestrato sul train set. Vengono inoltre date delle informazioni utili alla comprensione della performance del modello tra cui la loss e l'accuracy.
 
-Terminato il training andiamo a delineare un grafico che ci aiuta a rappresentare la correttezza del nostro modello andiando a valutare in particolare loss, accuracy, val_loss e val_accuracy.
+# Riconoscimento e stampa dell'espressione
+Si effettua dunque il riconoscimento delle espressioni contenute nella cartella "espressioni", si carica di volta in volta un'espressione, viene effettuata una sua interpretazione per suddividerla negli elementi che la compongono e successivamente viene effettuata una predizione su ogni singolo elemento stampando in output l'espressione completa in formato ASCII.
 
-
-
-# Riconoscimento
-In questo paragrafo andiamo a valutare le prestazioni del nostro modello con delle espressioni scritte a mano prese dalla cartella "espressioni".
-
-Inizialmente carichiamo un'immagine e successivamente andiamo ad effettuare un riconoscimento dei singoli elementi che compongono l'espressione per mezzo di OpenCV.
-
-In seguito effettuiamo delle predizioni sui singoli elementi che OpenCV ha estrapolato dall'imagine di partenza, andando così a creare un'unica espressione finale.
-
-
-# Parsing e calcolo
-Come ultima cosa, se l'espressione è valida ad essa viene effettuato un parsing e viene eguagliata a 0 per essere trasformata in una equazione in cui l'incognita è la variabile y.
-
-# Utilizzo
-Per testare il progetto è sufficiente installare le dipendeze, clonare la repository, estrarre il file "dataset.zip" nella cartella contenente il file "Progetto.ipynb" ed avviare il notebook.
+# Parsing e calcolo del risultato
+Se l'espressione è valida si effettua un parsing e si calcola il risultato, altrimenti si stampa un messaggio di errore.
