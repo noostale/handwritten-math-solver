@@ -1,30 +1,25 @@
-# Riconoscitore e risolutore di espressioni matematiche scritte a mano
-Lo scopo del progetto qui descritto è quello di determinare, a partire da un'immagine che contiene un'espressione matematica scritta a mano, l'equivalente espressione scritta in ASCII utilizzando una rete neurale convoluzionale.
+# Handwritten Mathematical Expression Recognizer and Solver
 
-# Librerie utilizzate
-Per il progetto sono state utilizzate le librerie:
+The purpose of this project is to recognize and convert a handwritten mathematical expression from an image into its equivalent ASCII representation using a **Convolutional Neural Network (CNN)**.
 
-- Numpy
-- Pandas
-- Matplotlib 
-- Sympy
-- Cv2
-- PIL
-- TensorFlow
+The project is structured across three Jupyter Notebooks. The following sections outline its core components.
 
-Il progetto è visionabile sottoforma di 3 Jupiter Notebook. Nei paragrafi successivi si delineano le fondamenta del progetto.
+## Dataset Loading Function  
+A function is defined to take as input a directory containing images and return a **normalized array**, adjusted according to the requirements of the model that will be defined later.
 
-# Funzione di caricamento del dataset
-Si definisce una funzione che presa in input una directory che contiene immagini, ne restituisce l'array normalizzato in base alle caratteristiche del modello che si andrà a definire in seguito.
+## Dataset Loading and Preprocessing  
+Test and training datasets are constructed and populated. Each image in the dataset is assigned a corresponding label, which is initially included in the matrix and later extracted.
 
-# Caricamento e pre-elaborazione del dataset
-Si costruiscono e popolano gli array che contengono il test ed il train set, aggiungendo come ultimo elemento della singola immagine nella matrice la label corrispondente ed estraendolo successivamente.
+## Model Definition and Training  
+A **sequential model** based on a **convolutional neural network (CNN)** is defined and then trained on the training dataset. Key metrics such as **loss** and **accuracy** are provided to assess the model's performance.
 
-# Definizione e training del modello
-Si definisce un modello sequenziale basato su una rete convoluzionale, che viene successivamente addestrato sul train set. Vengono inoltre date delle informazioni utili alla comprensione della performance del modello tra cui la loss e l'accuracy.
+## Expression Recognition and ASCII Conversion  
+The system processes expressions stored in the `"expressions"` folder:
+1. Each expression is loaded sequentially.
+2. The system **segments** the expression into individual components (e.g., numbers, operators).
+3. A **prediction** is made for each component.
+4. The final expression is reconstructed and displayed in **ASCII format**.
 
-# Riconoscimento e stampa dell'espressione
-Si effettua dunque il riconoscimento delle espressioni contenute nella cartella "espressioni", si carica di volta in volta un'espressione, viene effettuata una sua interpretazione per suddividerla negli elementi che la compongono e successivamente viene effettuata una predizione su ogni singolo elemento stampando in output l'espressione completa in formato ASCII.
-
-# Parsing e calcolo del risultato
-Se l'espressione è valida si effettua un parsing e si calcola il risultato, altrimenti si stampa un messaggio di errore.
+## Parsing and Result Calculation  
+- If the recognized expression is **valid**, it is parsed and evaluated to compute the result.
+- If the expression is **invalid**, an error message is displayed.
